@@ -13,7 +13,3 @@ xlabel('x1')
 ylabel('x2')
 zlabel('Probability Density')
 
-% calculate Mahalanobis distance
-mvn = mvnrnd([3 4], [1 0; 0 2]);
-points = [10 10; 0 0; 3 4; 6 8];
-distance = mahal(points, mvn);
