@@ -1,0 +1,12 @@
+mu = [3 4];
+sigma = [1 0; 0 2];
+x1 = -10:0.1:10;
+x2 = x1;
+[X1,X2] = meshgrid(-10:0.01:10);
+X = [X1(:) X2(:)];
+z = gaussion_generator(x, 3, 1);
+mesh(x,y,z);    
+
+function y = gaussion_generator(x, miu, sig)
+y = (sqrt(2*pi)*sig).^(-1) * exp(-(x-miu).^2/(2*sig*sig));
+end
