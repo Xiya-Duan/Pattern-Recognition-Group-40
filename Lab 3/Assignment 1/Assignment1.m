@@ -1,10 +1,13 @@
-% answer of question 1 - 5, check workspace to get values.
+% answer of question 1 - 5, please check variables with suffix like "q1"
 hit_q1 = 1 - normcdf(10, 7, 2);
 fa_q2 = 1 - normcdf(10, 5, 2);
 d_q3 = (7-5)/2.0;
 d_q4 = (9-5)/2.0;
 mu_q5 = 11;
-% answer of question 7 - 10
+% answer of question6 : D (Please correct me if wrong)
+% answer of question 7 - 8, please check variables with suffix like "q7"
+% for question 9, check the figure q_9_figure.fig.
+% answer of question 10: 1.845. (obtained from q_9_figure)
 data = load('.\lab3_1.mat', '-mat', 'outcomes');
 records = data.outcomes;
 hit_q7 = 0;
@@ -22,7 +25,6 @@ fa_q8 = fa_q8/200;
 for d = 1.83:0.005:1.88
     find_roc(d)
 end
-%plot(hit_g7, fa_q8);
 xlabel('fa');
 ylabel('hit');
 legend
