@@ -32,7 +32,7 @@ for i = 1:N
 end
 bar(error_rate_array); % create bar
 for i = 1:length(error_rate_array)
-text(i-0.3, error_rate_array(i)+0.01, [num2str(error_rate_array(i)*100) '%']);
+text(i, n(i)+0.5,num2str(n(i)));
 end
 hold on
 test_error = ones(N,1) * error_rate_array(end);
@@ -40,7 +40,6 @@ plot(test_error);
 hold on
 error_mean = ones(N,1) * mean(error_rate_array); % get mean
 plot(error_mean);
-text(6, error_mean(1)+0.01, ['Mean:' num2str(error_mean(1)*100) '%']);
 legend("Error rate","Test error","Mean");
 hold off
 
