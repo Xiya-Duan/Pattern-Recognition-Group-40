@@ -22,7 +22,17 @@ for i = 1:size(sample_size,1)
     indexA = randsample(1:length(dataA), sample_size(i,1));
     indexB = randsample(1:length(dataB), sample_size(i,2));
     prototype = [dataA(indexA,:); dataB(indexB,:)];
-    [X, error_rate, prototype] = LVQ1MainEpoch([dataA; dataB],prototype,epoch, error_bound);
+    
+    [X, error_rate, prototype, relevances] = LVQ1MainEpoch([dataA; dataB],prototype,epoch, error_bound);
+    subplot(2,1,1)
+    plot(error_rate);
+    subplot(2,1,2)
+    plot(relevances(:,1));
+    hold on
+    plot(relevances(:,2));
+    legend('lamda1','lamda2');
+    hold off
+    f2 = figure;
     for j = 1:size(prototype,1)
         points = X(X(:,4) == j,:);
         scatter(points(:,1), points(:,2),20, color(j),"filled");
@@ -35,11 +45,13 @@ end
 hold off
 
 
-function [X, error_rate, prototype] = LVQ1MainEpoch(X,prototype,epochs, error_bound)
+function [X, error_rate, prototype, relevances] = LVQ1MainEpoch(X,prototype,epochs, error_bound)
     % the third element in each row represent the class,
     % the fourth element in each roww represent the prototype.
     error_rate = [];
     relevance = [0.5,0.5];
+    relevances = [];
+    relevances(1,:) = [0.5,0.5];
     for n = 1:epochs
         error_num = 0;
         for i = 1:length(X) % number of examples
@@ -84,6 +96,7 @@ function [X, error_rate, prototype] = LVQ1MainEpoch(X,prototype,epochs, error_bo
                 break;
             end
         end
+        relevances(n+1,:) = relevance;
     end
 end
 
