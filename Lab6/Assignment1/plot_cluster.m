@@ -10,6 +10,6 @@ double_i = double(i);
 scatter(x,y,[],'MarkerEdgeColor',[(double_k-double_i)/double_k double_i/double_k double_i/double_k],'MarkerFaceColor',[(double_k-double_i)/double_k double_i/double_k double_i/double_k]);
 x_centroid=centroids(:,1);
 y_centroid=centroids(:,2);
-scatter(x_centroid,y_centroid,[],'MarkerEdgeColor',[double_i/double_k (double_k-double_i)/double_k double_i/double_k],'MarkerFaceColor',[double_i/double_k (double_k-double_i)/double_k double_i/double_k]);
+scatter(x_centroid,y_centroid,[],'x','MarkerEdgeColor',[double_i/double_k (double_k-double_i)/double_k double_i/double_k],'MarkerFaceColor',[double_i/double_k (double_k-double_i)/double_k double_i/double_k]);
 end
 end
