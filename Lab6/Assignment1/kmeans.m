@@ -1,4 +1,4 @@
-function [cluster_matrix,centroids] = kmeans(feature_vector,k)
+function [cluster_matrix,centroids] = kmeans(feature_vector,k,should_plot_centroid_movement)
 [row_size,col_size] = size(feature_vector);
 if row_size<=k
     cluster_matrix=[feature_vector, 1:row_size];
@@ -21,7 +21,12 @@ else
         for i = 1:k
             row_idx=find(current_iteration==i);
             if row_idx
-                centroids(i,:)=mean(feature_vector(row_idx,:),1);
+                current_centroid=mean(feature_vector(row_idx,:),1);
+                if(should_plot_centroid_movement==1)
+                    hold on;
+                    plot_arrow(centroids(i,1),centroids(i,2),current_centroid(:,1),current_centroid(:,2));
+                end
+                centroids(i,:)=current_centroid;
             end
         end
     end
