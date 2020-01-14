@@ -75,3 +75,31 @@ hold off;
 
 %Q7
 %Answer:The answer is kopt=2
+
+%Q8
+%Answer: Upload kmeansplusplus.m
+
+%Q9-Q12
+%Answer:
+min_k_errs=zeros(1,10);
+min_kpp_errs=zeros(1,10);
+for idx = 1:10
+    min_k_err= intmax;
+    min_kpp_err = intmax;
+    for idx2 = 1:20
+        k_err = quantization_error_plusplus(checkerboard,100,0);
+        kpp_err = quantization_error_plusplus(checkerboard,100,1);
+        if k_err<min_k_err
+            min_k_err = k_err;
+        end
+        if kpp_err<min_kpp_err
+            min_ppk_err = kpp_err;
+        end
+    end
+    min_k_errs(idx)=min_k_err;
+    min_kpp_errs(idx)=min_kpp_err;
+end
+q9mean=mean(min_kpp_errs);% I got
+q10dev=std(min_kpp_errs);% I got
+q11mean=mean(min_k_errs);% I got
+q12dev=std(min_k_errs);% I got
