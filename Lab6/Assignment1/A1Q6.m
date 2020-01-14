@@ -1,33 +1,3 @@
-load('kmeans1.mat')
-load('clusterCentroids.mat')
-load('checkerboard.mat')
-%Q1:
-%Answer: Upload kmeans.m
-%Q2:
-%Answer: Upload A1Q2.png
-hold on;
-subplot(3,1,1);
-plot_cluster(kmeans1,2,0);
-subplot(3,1,2);
-plot_cluster(kmeans1,4,0);
-subplot(3,1,3);
-plot_cluster(kmeans1,8,0);
-hold off;
-
-%Q3:
-%Answer: Upload A1Q3.png
-hold on;
-subplot(3,1,1);
-plot_cluster(kmeans1,2,1);
-legend({'centroid movement'},'Location','northwest','Orientation','horizontal')
-subplot(3,1,2);
-plot_cluster(kmeans1,4,1);
-legend({'centroid movement'},'Location','northwest','Orientation','horizontal')
-subplot(3,1,3);
-plot_cluster(kmeans1,8,1);
-legend({'centroid movement'},'Location','northwest','Orientation','horizontal')
-hold off;
-
 %Q4:
 %Answer: Upload A1Q4.png
 hold on;
@@ -70,8 +40,28 @@ plot(r_max(1),r_max(2),'bx','DisplayName','r-kopt');
 legend;
 hold off;
 
-%Q6
-%Answer: Upload A1Q6.m
+function [error] = quantization_error(feature_vector,k)%J(k)
+if k > size(feature_vector,1)
+    error=NaN;
+    print("Incorrect k. Must be lower than the number of points in the feature vector");
+else
+    error = 0;
+    [cluster_matrix,centroids] = kmeans(feature_vector,k,0);
+    for i = 1:k
+        idxk = cluster_matrix(:,3) == i;
+        current_cluster=cluster_matrix(idxk,[1,2]);
+        current_centroid=centroids(i,:);
+        for idx = 1:size(current_cluster,1)
+            error = error + 1/2 * (pdist2(current_cluster(idx,:),current_centroid)).^2;
+        end
+    end
+end
+end
 
-%Q7
-%Answer:The answer is kopt=2
+function [reference_value] = reference_function(feature_vector,k,d)
+reference_value=quantization_error(feature_vector,1)*k.^(-2/d);
+end
+
+function d = D(feature_vector,k,d)
+d=reference_function(feature_vector,k,d)/quantization_error(feature_vector,k);
+end
